@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ListaZakupow.ViewModels"
+             xmlns:views="clr-namespace:ListaZakupow.Views"
+             xmlns:models="clr-namespace:ListaZakupow.Models"
+             x:Class="ListaZakupow.MainPage"
+             x:Name="thisPage"
+             x:DataType="viewModels:MainViewModel"
+             Padding="10">
+
+    <ContentPage.BindingContext>
+        <viewModels:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="Auto, *">
+        <Frame Grid.Row="0" Margin="0,0,0,10" Padding="10">
+            <VerticalStackLayout Spacing="15">
+                <Frame Padding="10">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Nowa kategoria" FontAttributes="Bold" />
+                        <Entry Placeholder="Nazwa nowej kategorii" Text="{Binding NewCategoryName}" />
+                        <Button Text="Dodaj kategorię" Clicked="AddCategory_Clicked" />
+                    </VerticalStackLayout>
+                </Frame>
+                
+                <Frame Padding="10">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Nowy produkt" FontAttributes="Bold" />
+                        <Picker Title="Wybierz kategorię" 
+                                ItemsSource="{Binding Categories}" 
+                                ItemDisplayBinding="{Binding Name}"
+                                SelectedItem="{Binding SelectedCategory}" />
+                        <Entry Placeholder="Nazwa produktu" Text="{Binding NewProductName}" />
+                        <Entry Placeholder="Jednostka (szt, kg, l)" Text="{Binding NewProductUnit}" />
+                        <Button Text="Dodaj produkt" Clicked="AddProduct_Clicked" />
+                    </VerticalStackLayout>
+                </Frame>
+                
+            </VerticalStackLayout>
+        </Frame>
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Categories}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Category">
+                    <views:CategoryView />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

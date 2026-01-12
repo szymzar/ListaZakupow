@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ListaZakupow.Models"
+             x:Class="ListaZakupow.Views.ProductView"
+             x:DataType="models:Product">
+    <Frame Padding="10" Margin="0,5,0,5">
+        <Grid ColumnDefinitions="Auto, *, Auto, Auto" ColumnSpacing="10" VerticalOptions="Center">
+            <CheckBox Grid.Column="0" IsChecked="{Binding IsPurchased}" VerticalOptions="Center" />
+
+            <StackLayout Grid.Column="1" VerticalOptions="Center" Spacing="0">
+                <Label Text="{Binding Name}" TextDecorations="{Binding Strikethrough}" FontSize="18" LineBreakMode="TailTruncation" />
+                <Label Text="{Binding Unit}" FontSize="12" TextColor="Gray" />
+            </StackLayout>
+
+            <StackLayout Grid.Column="2" Orientation="Horizontal" VerticalOptions="Center" Spacing="5">
+                <Button Text="-" Clicked="Decrease_Clicked" Style="{StaticResource QuantityButton}" />
+                <Entry Text="{Binding Quantity}" Keyboard="Numeric" WidthRequest="50" HorizontalTextAlignment="Center" VerticalOptions="Center" />
+                <Button Text="+" Clicked="Increase_Clicked" Style="{StaticResource QuantityButton}" />
+            </StackLayout>
+
+            <Button Grid.Column="3" Text="Usuń" Clicked="Delete_Clicked" VerticalOptions="Center" BackgroundColor="{StaticResource Red}" />
+        </Grid>
+    </Frame>
+</ContentView>
